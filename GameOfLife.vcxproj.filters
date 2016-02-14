@@ -15,13 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="src\GoLBoard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GoLBoard.cpp">
+    <ClCompile Include="src\GoLColor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GoLColor.cpp">
+    <ClCompile Include="src\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,10 +29,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GoLBoard.h">
+    <ClInclude Include="src\GoLBoard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GoLColor.h">
+    <ClInclude Include="src\GoLColor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

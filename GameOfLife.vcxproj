@@ -83,9 +83,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GoLColor.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="GoLBoard.cpp" />
+    <ClCompile Include="src\GoLColor.cpp" />
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\GoLBoard.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
@@ -93,8 +93,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GoLBoard.h" />
-    <ClInclude Include="GoLColor.h" />
+    <ClInclude Include="src\GoLBoard.h" />
+    <ClInclude Include="src\GoLColor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
