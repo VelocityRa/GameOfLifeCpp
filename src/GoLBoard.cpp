@@ -6,6 +6,7 @@
 #include <SFML/System/Time.hpp>
 #include "GOLBoard.h"
 #include "GoLColor.h"
+#include <cassert>
 
 
 GOLBoard::GOLBoard(const uint32_t cellsX, const uint32_t cellsY,
@@ -59,7 +60,6 @@ void GOLBoard::updateTexture()
 	{
 		for (auto y = 0; y < cellsY; y++)
 		{
-			
 			if (isDead(x, y))
 			{
 				continue;
@@ -144,7 +144,7 @@ void GOLBoard::update(sf::Time& _elapsed)
 	if(running & elapsedSum.asSeconds() > 1.f/stepSpeed)
 	{
 		stepSimulation();
-		std::cout << cellNum << std::endl;
+		//std::cout << cellNum << std::endl;
 		elapsedSum = sf::seconds(0.f);
 	}
 }
@@ -182,6 +182,7 @@ void GOLBoard::handleMouse(int x, int y)
 	}
 }
 
+// Assumes that input is not more than the board can fit
 void GOLBoard::populateRandom(uint32_t nCells)
 {
 	cellNum += nCells;
@@ -195,4 +196,21 @@ void GOLBoard::populateRandom(uint32_t nCells)
 			nCells--;
 		}
 	}
+}
+
+void GOLBoard::changeColors(colorName col)
+{
+	currColor = col;
+	// We need to change that ourselves here since changes to the fg color are not checked when drawing
+	rect.setFillColor(palette[currColor].fg);	
+}
+
+// dir is 1 going forwards, -1 if going backwards
+void GOLBoard::cyclePaletteColors(int dir)
+{
+	assert(dir != 1 || dir != -1);
+
+	auto newCol = static_cast<colorName>(std::max(0, getCurColor() + dir) % NUM_COLORS);
+	changeColors(newCol);
+	changed = true;		// Change texture immediately (at next update())
 }

@@ -7,6 +7,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/System/Time.hpp>
+#include <SFML/System/String.hpp>
 
 enum colorName;
 
@@ -87,11 +88,18 @@ public:
 	{
 		stepSpeed = std::max(0, stepSpeed + speedDelta);
 	}
-	int		getStepSpeed()const 
+	int		getStepSpeed() const 
 	{
 		return stepSpeed;
 	}
-
+	unsigned int getCellNumber() const
+	{
+		return cellNum;
+	}
+	colorName	getCurColor() const
+	{
+		return currColor;
+	}
 	void clearBoard()
 	{
 		for (auto x = 0; x < cellsX; x++)
@@ -108,8 +116,11 @@ public:
 	void handleMarked();
 	void stepSimulation();
 	void populateRandom(uint32_t nCells);
+	void changeColors(colorName col);
+	void GOLBoard::cyclePaletteColors(int dir);
 	uint8_t	getNeighbours(uint32_t i, uint32_t j) const;
 	void handleMouse(int x, int y);
+
 private:
 	virtual void GOLBoard::draw(sf::RenderTarget& target, sf::RenderStates states) const override
 	{

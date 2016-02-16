@@ -97,7 +97,6 @@
     <ClInclude Include="src\GoLColor.h" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="..\chip8-emu\resources\fonts\Minecraftia-Regular.ttf" />
     <Font Include="resources\fonts\Minecraftia-Regular.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
