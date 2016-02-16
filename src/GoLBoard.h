@@ -91,6 +91,14 @@ public:
 	{
 		return stepSpeed;
 	}
+
+	void clearBoard()
+	{
+		for (auto x = 0; x < cellsX; x++)
+			for (auto y = 0; y < cellsY; y++)
+				cells[x][y] = CellType::Dead;
+		cellNum = 0;
+	}
 	// ========================================================================
 	// End of helper methods
 
@@ -120,4 +128,5 @@ private:
 	sf::Sprite sprite;
 	sf::Time elapsedSum;
 	colorName currColor;
+	int cellNum;
 };

@@ -19,9 +19,19 @@ int main()
 
 	auto clicking = false;
 
+	// Text stuff
+	sf::Font mc_font;
+	if (!mc_font.loadFromFile("../../resources/fonts/Minecraftia-Regular.ttf"))
+	{
+		//Couldn't load font
+		window.close();
+		return -1;
+	}
+
+	// Timing variables
 	sf::Clock clock;
 	sf::Time elapsed;
-
+	
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -51,8 +61,9 @@ int main()
 				switch (event.key.code) {
 				case sf::Keyboard::Space:
 					board.toggleRunningState();
+					break;
 				case sf::Keyboard::C:
-					//board.clear
+					board.clearBoard();
 					break;
 				}
 			}

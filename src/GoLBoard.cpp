@@ -9,7 +9,7 @@
 
 
 GOLBoard::GOLBoard(const uint32_t cellsX, const uint32_t cellsY,
-		const uint32_t resX, const uint32_t resY, const colorName col):
+	const uint32_t resX, const uint32_t resY, const colorName col) :
 	cellsX(cellsX),
 	cellsY(cellsY),
 	resX(resX),
@@ -38,7 +38,8 @@ GOLBoard::GOLBoard(const uint32_t cellsX, const uint32_t cellsY,
 
 	//sprite.setColor(sf::Color(255, 255, 255, 170));
 
-	populateRandom(cellsX*cellsY/8);	// Fill up an eighth of the cells
+	int initCellNum = cellsX*cellsY / 8; // Fill up an eighth of the cells
+	populateRandom(initCellNum);	
 }
 
 GOLBoard::~GOLBoard()
@@ -103,23 +104,30 @@ void GOLBoard::handleMarked()
 
 void GOLBoard::stepSimulation()
 {
+	cellNum = 0;
 	for (auto x = 0; x < cellsX; x++)
 		for (auto y = 0; y < cellsY; y++)
+		{
+			if (isAlive(x, y)) cellNum++;
 			if (isDead(x, y))
 			{
 				if (getNeighbours(x, y) == 3) // If a dead cell has 3 neighboors, give it life!
+				{
 					markBirthCell(x, y);
-			} else {
+				}
+			}
+			else {
 				//printf("x: %d y: %d n: %d\n", x, y, getNeighbours(x, y));
 				switch (getNeighbours(x, y))
 				{
-				case 2:	 // A cell remains alive only if it has 2 or 3 neighboors
+				case 2: // A cell remains alive only if it has 2 or 3 neighboors
 				case 3:
 					break;
 				default:
-					markDeathCell(x, y);	 // In every other case, it gets marked to die on the next tick
+					markDeathCell(x, y); // In every other case, it gets marked to die on the next tick
 				}
 			}
+		}
 	handleMarked(); // Handle MarkedBirth and MarkedDie cells
 	changed = true;
 }
@@ -132,11 +140,11 @@ void GOLBoard::update(sf::Time& _elapsed)
 		updateSprite();
 		//handleMarked();	Call that in stepSimulation for now
 	}
-
 	elapsedSum += _elapsed;
 	if(running & elapsedSum.asSeconds() > 1.f/stepSpeed)
 	{
 		stepSimulation();
+		std::cout << cellNum << std::endl;
 		elapsedSum = sf::seconds(0.f);
 	}
 }
@@ -176,6 +184,7 @@ void GOLBoard::handleMouse(int x, int y)
 
 void GOLBoard::populateRandom(uint32_t nCells)
 {
+	cellNum += nCells;
 	while (nCells)
 	{
 		auto xRand = rand() % cellsX;

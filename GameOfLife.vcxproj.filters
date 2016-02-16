@@ -36,4 +36,8 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\chip8-emu\resources\fonts\Minecraftia-Regular.ttf" />
+    <Font Include="resources\fonts\Minecraftia-Regular.ttf" />
+  </ItemGroup>
 </Project>
