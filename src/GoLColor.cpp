@@ -14,7 +14,7 @@ void setUpPalette()
 	AddCols(123, 22, 3,		// RED_AND_PURPLE
 			43,	20,	90);
 	AddCols(167, 219, 216,	// LIGHT_BLUES
-			95, 200, 221);
+			65, 170, 190);
 	AddCols(170, 70, 40,	// DARK_AND_EARTHY
 			68, 32, 26);
 }

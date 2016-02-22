@@ -176,7 +176,6 @@ void GOLBoard::handleMouse(int x, int y)
 {
 	if (x > 0 && y > 0 && x < resX && y < resY)  // Are we on an edge?
 	{
-		std::cout << x / (resX / cellsX)  << "\t" <<  -y / static_cast<int>(resY / cellsY) + cellsY - 1 << std::endl;
 		setCell(x / (float(resX) / cellsX), -y / (float(resY) / cellsY) + cellsY,
 			sf::Mouse::isButtonPressed(sf::Mouse::Left) ? CellType::Alive : CellType::Dead);
 		changed = true;
