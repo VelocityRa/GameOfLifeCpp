@@ -128,7 +128,8 @@ private:
 	}
 
 	int stepSpeed = 15;	// Simulation speed in steps per second
-	const uint32_t cellsX, cellsY, resX, resY, sizeX, sizeY;
+	const uint32_t cellsX, cellsY, resX, resY;
+	const float sizeX, sizeY;
 	bool running, changed;
 
 	// make a C array instead of a vector for performance

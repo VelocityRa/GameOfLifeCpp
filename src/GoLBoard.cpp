@@ -15,8 +15,8 @@ GOLBoard::GOLBoard(const uint32_t cellsX, const uint32_t cellsY,
 	cellsY(cellsY),
 	resX(resX),
 	resY(resY),
-	sizeX(resX / cellsX),
-	sizeY(resY / cellsY),
+	sizeX(float(resX) / cellsX),
+	sizeY(float(resY) / cellsY),
 	currColor(col),
 	running(true), // flag to keep track of when we need to update the Board texture
 	changed(true)  // Are we running the simulation?
@@ -176,7 +176,8 @@ void GOLBoard::handleMouse(int x, int y)
 {
 	if (x > 0 && y > 0 && x < resX && y < resY)  // Are we on an edge?
 	{
-		setCell(x / (resX / cellsX), -y / static_cast<int>(resY / cellsY) + cellsY - 1,
+		std::cout << x / (resX / cellsX)  << "\t" <<  -y / static_cast<int>(resY / cellsY) + cellsY - 1 << std::endl;
+		setCell(x / (float(resX) / cellsX), -y / (float(resY) / cellsY) + cellsY,
 			sf::Mouse::isButtonPressed(sf::Mouse::Left) ? CellType::Alive : CellType::Dead);
 		changed = true;
 	}

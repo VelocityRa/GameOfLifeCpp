@@ -4,14 +4,14 @@
 #include <iostream>
 #include "GoLColor.h"
 
-const std::string version = "0.9";
+const std::string version = "1.0";
 const auto resX =	1280;
 const auto resY =	720;
-const auto cellsX = resX/5;
-const auto cellsY = resY/5;
-const auto text_padding = 20;
+const auto cellsX = resX/6;
+const auto cellsY = resY/6;
+const auto text_padding = (resX/cellsX)*4+2;
 
-static void updateCellNumber(GOLBoard& board, sf::Text& numText);
+static void updateStatusText(GOLBoard& board, sf::Text& numText);
 
 int main()
 {
@@ -20,8 +20,6 @@ int main()
 
 	setUpPalette();
 	GOLBoard board(cellsX, cellsY, resX, resY, DARK_AND_EARTHY);
-
-	auto clicking = false;
 
 	// Text stuff
 	sf::Font mc_font;
@@ -32,20 +30,22 @@ int main()
 		return -1;
 	}
 
-	sf::Text cellNumText;
+	sf::Text statusText;
 
-	cellNumText.setFont(mc_font);
-	cellNumText.setCharacterSize(24);
-	cellNumText.setPosition(text_padding, 16 + text_padding);
-	cellNumText.setColor(sf::Color(100, 100, 100));
+	statusText.setFont(mc_font);
+	statusText.setCharacterSize(16);
+	statusText.setPosition(text_padding, 8 + text_padding);
+	statusText.setColor(sf::Color(120, 120, 120));
+
+	auto clicking = false;
 
 	// Timing variables
 	sf::Clock clock;
 	sf::Time elapsed;
-	
+
+	sf::Event event;
 	while (window.isOpen())
 	{
-		sf::Event event;
 		while (window.pollEvent(event))
 		{
 			switch (event.type) {
@@ -81,22 +81,26 @@ int main()
 			}
 		}
 
-		updateCellNumber(board, cellNumText);
+		updateStatusText(board, statusText);
 
 		elapsed = clock.restart();
 		board.update(elapsed);
 
 		//window.clear(sf::Color(0,0,0,64));
 		window.draw(board);
-
-		window.draw(cellNumText);
+		window.draw(statusText);
 		window.display();
 	}
 
 	return 0;
 }
 
-static void updateCellNumber(GOLBoard& board, sf::Text& numText)
+static void updateStatusText(GOLBoard& board, sf::Text& numText)
 {
-	numText.setString("Cells: " + std::to_string(board.getCellNumber()));
+	numText.setString(
+		"Alive Cells: " + std::to_string(board.getCellNumber()) +
+		"\nSim. Speed:  " + std::to_string(board.getStepSpeed()/3));
 }
+
+//TODO: (idea) have an additional table and smooth out the values where 
+//		there are alive cells over time, creating a blurry smooth effect
