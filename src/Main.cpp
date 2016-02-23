@@ -5,10 +5,10 @@
 #include "GoLColor.h"
 
 const std::string version = "1.0";
-const auto resX =	1280;
-const auto resY =	720;
-const auto cellsX = resX/6;
-const auto cellsY = resY/6;
+const auto resX = 1920 * .75;
+const auto resY = 1080 * .75;
+const auto cellsX = resX/5;
+const auto cellsY = resY/5;
 const auto text_padding = (resX/cellsX)*4+2;
 const sf::Color gridColor(0, 0, 0);
 
@@ -31,7 +31,7 @@ int main()
 	{
 		//Couldn't load font
 		window.close();
-		return -1;
+		exit(EXIT_FAILURE);
 	}
 	sf::Text statusText;
 
@@ -44,7 +44,7 @@ int main()
 	// ========================================================================
 
 	auto clicking = false;
-	auto showGrid = true;
+	auto showGrid = false;
 	auto showStatus = true;
 
 	// Timing variables
@@ -53,7 +53,7 @@ int main()
 
 	sf::Event event;
 
-	// Make the grid sprite
+	// Make the grid
 	sf::Sprite grid;
 	sf::RenderTexture gridTexture;
 	makeGrid(grid, gridTexture);
@@ -116,7 +116,7 @@ int main()
 		window.display();
 	}
 
-	return 0;
+	return EXIT_SUCCESS;
 }
 
 static void updateStatusText(GOLBoard& board, sf::Text& numText)
