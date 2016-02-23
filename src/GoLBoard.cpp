@@ -18,8 +18,8 @@ GOLBoard::GOLBoard(const uint32_t cellsX, const uint32_t cellsY,
 	sizeX(float(resX) / cellsX),
 	sizeY(float(resY) / cellsY),
 	currColor(col),
-	running(true), // flag to keep track of when we need to update the Board texture
-	changed(true)  // Are we running the simulation?
+	running(true), // Are we running the simulation?
+	changed(true)  // flag to keep track of when we need to update the Board texture
 {
 	// Make a 2 dimensional dynamic array of CellTypes to hold our cells
 	cells = static_cast<CellType**>(calloc(cellsX, sizeof(CellType*)));
@@ -132,6 +132,7 @@ void GOLBoard::stepSimulation()
 
 void GOLBoard::update(sf::Time& _elapsed)
 {
+	//birthCell(rand() % cellsX, rand() % cellsY);
 	if(changed)
 	{
 		updateTexture();
