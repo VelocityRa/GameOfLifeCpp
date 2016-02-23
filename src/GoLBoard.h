@@ -112,7 +112,6 @@ public:
 
 	void GOLBoard::update(sf::Time& elapsedTime);
 	void updateTexture();
-	void updateSprite();
 	void handleMarked();
 	void stepSimulation();
 	void populateRandom(uint32_t nCells);
@@ -125,6 +124,11 @@ private:
 	virtual void GOLBoard::draw(sf::RenderTarget& target, sf::RenderStates states) const override
 	{
 		target.draw(sprite);
+	}
+
+	void setSpriteTexture()
+	{
+		sprite.setTexture(boardTexture.getTexture());
 	}
 
 	int stepSpeed = 15;	// Simulation speed in steps per second

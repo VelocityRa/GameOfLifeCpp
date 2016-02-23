@@ -33,7 +33,10 @@ GOLBoard::GOLBoard(const uint32_t cellsX, const uint32_t cellsY,
 		printf("error creating texture");
 		exit(-1);
 	}
-	//srand(time(nullptr));
+	setSpriteTexture();
+
+	srand(time(nullptr));
+
 	rect.setSize(sf::Vector2f(sizeX, sizeY));
 	rect.setFillColor(palette[currColor].fg);
 
@@ -87,11 +90,6 @@ void GOLBoard::updateTexture()
 	changed = false;
 }
 
-void GOLBoard::updateSprite()
-{
-	sprite.setTexture(boardTexture.getTexture());
-}
-
 void GOLBoard::handleMarked()
 {
 	for (auto x = 0; x < cellsX; x++)
@@ -137,14 +135,12 @@ void GOLBoard::update(sf::Time& _elapsed)
 	if(changed)
 	{
 		updateTexture();
-		updateSprite();
 		//handleMarked();	Call that in stepSimulation for now
 	}
 	elapsedSum += _elapsed;
 	if(running & elapsedSum.asSeconds() > 1.f/stepSpeed)
 	{
 		stepSimulation();
-		//std::cout << cellNum << std::endl;
 		elapsedSum = sf::seconds(0.f);
 	}
 }
