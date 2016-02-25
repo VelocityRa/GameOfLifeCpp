@@ -5,8 +5,8 @@
 #include "GoLColor.h"
 
 const std::string version = "1.0";
-const auto resX = 1920 * .75;
-const auto resY = 1080 * .75;
+const uint32_t resX = 1920 * .75;
+const uint32_t resY = 1080 * .75;
 const auto cellsX = resX/5;
 const auto cellsY = resY/5;
 const auto text_padding = (resX/cellsX)*4+2;
@@ -19,7 +19,7 @@ static void makeGrid(sf::Sprite& grid, sf::RenderTexture& gridTexture);
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(resX, resY), "Game Of Life v" + version, sf::Style::Close);
-	window.setFramerateLimit(120);
+	//window.setFramerateLimit(120);
 
 	setUpPalette();
 	GOLBoard board(cellsX, cellsY, resX, resY, DARK_AND_EARTHY);

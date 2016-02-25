@@ -119,7 +119,7 @@ void GOLBoard::update(sf::Time& _elapsed)
 		updateTexture();
 	}
 	elapsedSum += _elapsed;
-	if(running & elapsedSum.asSeconds() > 1.f/stepSpeed)
+	if(running && elapsedSum.asSeconds() > 1.f/stepSpeed)
 	{
 		stepSimulation();
 		elapsedSum = sf::seconds(0.f);
