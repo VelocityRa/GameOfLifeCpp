@@ -6,7 +6,6 @@
 #include <SFML/System/Time.hpp>
 #include "GOLBoard.h"
 #include "GoLColor.h"
-#include <cassert>
 
 
 GOLBoard::GOLBoard(const uint32_t cellsX, const uint32_t cellsY,
@@ -40,8 +39,6 @@ GOLBoard::GOLBoard(const uint32_t cellsX, const uint32_t cellsY,
 	rect.setSize(sf::Vector2f(sizeX, sizeY));
 	rect.setFillColor(palette[currColor].fg);
 
-	//sprite.setColor(sf::Color(255, 255, 255, 170));
-
 	int initCellNum = cellsX*cellsY / 8; // Fill up an eighth of the cells
 	populateRandom(initCellNum);	
 }
@@ -67,24 +64,11 @@ void GOLBoard::updateTexture()
 			{
 				continue;
 			}
-			/*
-			if (isMarkedBirth(x, y))
-			{
-				rect.setFillColor(sf::Color::Cyan);
-			} else if (isMarkedDeath(x,y))  {
-				rect.setFillColor(sf::Color::Yellow);
-			} else if (isAlive(x, y)) {
-				rect.setFillColor(sf::Color::White);
-			} else {
-				continue;
-			}
-			*/
+
 			rect.setPosition(sf::Vector2f(x * sizeX, y * sizeY));	//set the appropriate position to the Rect
 			//sf::RenderStates states(sf::BlendAdd);
 
 			boardTexture.draw(rect);	// Draw it on our board texture
-				
-			//rect.setFillColor(sf::Color::White);
 		}
 	}
 	changed = false;
@@ -115,7 +99,6 @@ void GOLBoard::stepSimulation()
 				}
 			}
 			else {
-				//printf("x: %d y: %d n: %d\n", x, y, getNeighbours(x, y));
 				switch (getNeighbours(x, y))
 				{
 				case 2: // A cell remains alive only if it has 2 or 3 neighboors
@@ -132,11 +115,9 @@ void GOLBoard::stepSimulation()
 
 void GOLBoard::update(sf::Time& _elapsed)
 {
-	//birthCell(rand() % cellsX, rand() % cellsY);
 	if(changed)
 	{
 		updateTexture();
-		//handleMarked();	Call that in stepSimulation for now
 	}
 	elapsedSum += _elapsed;
 	if(running & elapsedSum.asSeconds() > 1.f/stepSpeed)
@@ -151,7 +132,6 @@ uint8_t GOLBoard::getNeighbours(uint32_t i, uint32_t j) const
 	auto nb = 0;
 	if(i==0 || j==0 || i==cellsX-1 || j==cellsY-1)  // Are we on an edge?
 	{
-		//printf("EDGE x: %d y: %d\n", i, j);
 		for (auto x = -1; x <= 1; x++)
 			for (auto y = -1; y <= 1; y++)
 				if (!(x + i == -1 || y + j == -1 || x + i == cellsX || y + j == cellsY)) // Are we inside the board?
@@ -205,8 +185,6 @@ void GOLBoard::changeColors(colorName col)
 // dir is 1 going forwards, -1 if going backwards
 void GOLBoard::cyclePaletteColors(int dir)
 {
-	assert(dir != 1 || dir != -1);
-
 	auto newCol = static_cast<colorName>(std::max(0, getCurColor() + dir) % NUM_COLORS);
 	changeColors(newCol);
 	changed = true;		// Change texture immediately (at next update())
