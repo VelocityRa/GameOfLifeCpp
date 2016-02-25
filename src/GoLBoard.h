@@ -32,12 +32,11 @@ public:
 	// ========================================================================
 	CellType getCell(uint32_t i, uint32_t j)		const
 	{
-		return cells[i][j];
+		return cells[i + cellsX*j];
 	}
 	void	setCell(uint32_t i, uint32_t j, CellType cell)
 	{
-		//printf("i: %u j: %u\n", i, j);
-		cells[i][j] = cell;
+		cells[i + cellsX*j] = cell;
 	}
 	bool	isAlive(uint32_t i, uint32_t j)			const
 	{
@@ -104,7 +103,7 @@ public:
 	{
 		for (auto x = 0; x < cellsX; x++)
 			for (auto y = 0; y < cellsY; y++)
-				cells[x][y] = CellType::Dead;
+				killCell(x,y);
 		cellNum = 0;
 	}
 	// ========================================================================
@@ -126,18 +125,13 @@ private:
 		target.draw(sprite);
 	}
 
-	void setSpriteTexture()
-	{
-		sprite.setTexture(boardTexture.getTexture());
-	}
-
 	int stepSpeed = 15;	// Simulation speed in steps per second
 	const uint32_t cellsX, cellsY, resX, resY;
 	const float sizeX, sizeY;
 	bool running, changed;
 
 	// make a C array instead of a vector for performance
-	CellType **cells;
+	CellType *cells;
 	sf::RectangleShape rect;
 	sf::RenderTexture boardTexture;
 	sf::Texture image;

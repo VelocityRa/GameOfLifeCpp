@@ -21,18 +21,17 @@ GOLBoard::GOLBoard(const uint32_t cellsX, const uint32_t cellsY,
 	changed(true)  // flag to keep track of when we need to update the Board texture
 {
 	// Make a 2 dimensional dynamic array of CellTypes to hold our cells
-	cells = static_cast<CellType**>(calloc(cellsX, sizeof(CellType*)));
-	for (size_t x = 0; x < cellsX; x++)
-	{
-		cells[x] = static_cast<CellType*>(calloc(cellsY, sizeof(CellType)));
-	}
+
+	cells = static_cast<CellType*>(calloc(cellsY*cellsX, sizeof(CellType)));
 
 	if (!boardTexture.create(resX, resY))
 	{
 		printf("error creating texture");
 		exit(-1);
 	}
-	setSpriteTexture();
+
+	// Set the texture for the sprite we use for drawing
+	sprite.setTexture(boardTexture.getTexture());
 
 	srand(time(nullptr));
 
@@ -45,10 +44,6 @@ GOLBoard::GOLBoard(const uint32_t cellsX, const uint32_t cellsY,
 
 GOLBoard::~GOLBoard()
 {
-	for (size_t x = 0; x < cellsX; x++)
-	{
-		free(cells[x]);
-	}
 	free(cells);
 }
 
