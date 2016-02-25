@@ -66,7 +66,6 @@ void GOLBoard::updateTexture()
 			}
 
 			rect.setPosition(sf::Vector2f(x * sizeX, y * sizeY));	//set the appropriate position to the Rect
-			//sf::RenderStates states(sf::BlendAdd);
 
 			boardTexture.draw(rect);	// Draw it on our board texture
 		}
